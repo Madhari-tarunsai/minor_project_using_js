@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tour_Planner_Website</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!--  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <style>
+    #logout {
+        width: 100px;
+        padding: 5px;
+        font-size: 14px;
+      }
+  </style>
+  <body>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Take a trip </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="./booking .html">Booking</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#review">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+          <!-- Search Bar -->
+          <div class="d-flex search-bar">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit" id="search">
+              Search
+            </button>
+            
+          </div>
+          <button class="btn btn-danger ms-3" id="logout">Logout</button>
+          <script>
+            document.getElementById('logout').addEventListener('click', function() {
+              alert('You have been logged out.');
+              window.location.href = 'login.html'; // Redirect to login page
+            });
+          </script>
+        </div>
+      </div>
+    </nav>
+    <div id="home" class="home">
+      <div class="bg">
+        <div class="div1">
+          <h1>Travel The World & Explore The New Destination</h1>
+        </div>
+        <div class="p1">
+          <p>
+            Welcome to our travel Info. Explore new destinations and plan your
+            next adventure with us!
+          </p>
+        </div>
+        <div class="pa1" >
+          <a href="#packers">Explore</a>
+        </div>
+      </div>
+    </div>
+    <span id="about" class="about">
+        <div class="about-image">
+            <img src="https://static1.bigstockphoto.com/5/0/3/large1500/305090479.jpg" alt="Travel" height="300px">
+        </div>
+        <div class="about-content">
+            <h2>About Us</h2>
+            <p>Learn about our travel information services and how we can help you plan your dream vacation.</p>
+            <a href="#" class="read-more">Read more</a>
+        </div>
+    </span>
+    <div class="gallery-container">
+        <div class="gallery-header">
+            <h3>Our Gallery </h3>
+        </div>
+        <div class="image">
+            <img src="https://veereshas431.github.io/Holiday-Plan/images/images/p1.jpg" alt="">
+            <img src="https://veereshas431.github.io/Holiday-Plan/images/images/p2.png" alt="">
+            <img src="https://veereshas431.github.io/Holiday-Plan/images/images/p3.png" alt="">
+            <img src="https://veereshas431.github.io/Holiday-Plan/images/images/p4.png" alt="">
+            <img src="https://veereshas431.github.io/Holiday-Plan/images/images/p5.png" alt="">
+        </div>
+    </div>
+    <div id="packers" class="packers">
+    <h1 id="pageTitle">Top Visiting Places in India</h1>
+
+    <div id="placesList">
+        <!-- Cards will be added dynamically here -->
+    </div>
+
+    <script>
+        // Create the main container for the places
+const placesContainer = document.createElement('div');
+placesContainer.style.display = 'flex';
+placesContainer.style.flexWrap = 'wrap';
+placesContainer.style.gap = '20px';
+placesContainer.style.justifyContent = 'center';
+placesContainer.style.padding = '20px';
+
+// Fetch data from the API
+fetch('https://67a18af35bcfff4fabe2aeb4.mockapi.io/places')
+  .then(response => response.json())
+  .then(places => {
+    // Loop through the data and create elements for each place
+    places.forEach(place => {
+      const placeCard = document.createElement('div');
+      placeCard.style.backgroundColor = '#FFFAF0';
+      placeCard.style.border = '1px solid #ddd';
+      placeCard.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+      placeCard.style.width = '250px';
+      placeCard.style.color="black"
+      placeCard.style.borderRadius = '10px';
+      placeCard.style.overflow = 'hidden';
+      placeCard.style.textAlign = 'center';
+      placeCard.style.padding = '15px';
+      placeCard.style.transition = 'transform 0.3s ease';
+
+      // Hover effect to slightly scale the card
+      placeCard.addEventListener('mouseenter', () => {
+        placeCard.style.transform = 'scale(1.05)';
+      });
+      placeCard.addEventListener('mouseleave', () => {
+        placeCard.style.transform = 'scale(1)';
+      });
+
+      // Create and style image
+      const image = document.createElement('img');
+      image.src = place.image || 'https://via.placeholder.com/250'; // Placeholder if no image
+      image.alt = place.name;
+      image.style.width = '100%';
+      image.style.height = '150px';
+      image.style.objectFit = 'cover';
+      image.style.borderRadius = '5px';
+
+      // Create place details (name, rating, information, cost)
+      const title = document.createElement('h2');
+      title.textContent = place.name;
+      title.style.fontSize = '18px';
+      title.style.color = '#333';
+      title.style.margin = '10px 0';
+
+      const rating = document.createElement('p');
+      rating.textContent = `Rating: ${place.rating} stars`;
+      rating.style.fontSize = '16px';
+      rating.style.color = 'black'; // Gold color for stars
+      rating.style.margin = '10px 0';
+
+      const info = document.createElement('p');
+      info.textContent = place.information;
+      info.style.fontSize = '14px';
+      info.style.color = 'black';
+      info.style.margin = '5px 0';
+
+      const cost = document.createElement('p');
+      cost.textContent = `Cost for Indians: ₹${place.cost.Indians}, Foreigners: ₹${place.cost.Foreigners}`;
+      cost.style.fontSize = '14px';
+      cost.style.color = '#333';
+      cost.style.margin = '5px 0';
+
+      // Create a booking button
+      const bookButton = document.createElement('button');
+      bookButton.textContent = 'Book Now';
+      bookButton.style.backgroundColor = '#DC143C';
+      bookButton.style.color = 'white';
+      bookButton.style.padding = '10px 20px';
+      bookButton.style.border = 'none';
+      bookButton.style.borderRadius = '5px';
+      bookButton.style.cursor = 'pointer';
+      bookButton.style.marginTop = '10px';
+      bookButton.style.transition = 'background-color 0.3s ease';
+
+      // Button hover effect
+      bookButton.addEventListener('mouseenter', () => {
+        bookButton.style.backgroundColor = '#DC143C';
+      });
+      bookButton.addEventListener('mouseleave', () => {
+        bookButton.style.backgroundColor = '#DC143C';
+      });
+
+      // Button click action
+      bookButton.addEventListener('click', () => {
+        alert(`Booking place with ID: ${place.id}`);
+      });
+       // Button click action to redirect to booking.html
+       bookButton.addEventListener('click', () => {
+  // Redirect to booking.html without passing the placeId
+  window.location.href ="booking .html";
+});
+
+      // Append elements to the place card
+      placeCard.appendChild(image);
+      placeCard.appendChild(title);
+      placeCard.appendChild(rating);
+      placeCard.appendChild(info);
+      placeCard.appendChild(cost);
+      placeCard.appendChild(bookButton);
+
+      // Append the place card to the container
+      placesContainer.appendChild(placeCard);
+    });
+  })
+  .catch(error => console.error('Error fetching places:', error));
+
+// Append the container to the body of the document
+document.body.appendChild(placesContainer);
+
+    </script>
+    </div>
+    <section class="services" id="services">
+      <h2>Our Services</h2>
+      <article>
+          <div class="service-item">
+              <i class="fas fa-ticket-alt" <ion-icon name="airplane-outline"></ion-icon>></i>
+              <h6>Around The World</h6>
+              <p>Discover our global travel packages and explore the world's most fascinating destinations.</p>
+          </div>
+          <div class="service-item">
+              <i class="fas fa-backward" <ion-icon name="airplane-outline"></ion-icon>>></i>
+              <h6>Fastest Travel</h6>
+              <p>Experience the fastest and most convenient travel options with our exclusive travel services.</p>
+          </div>
+          <div class="service-item">
+              <i class="fas fa-tshirt" <ion-icon name="airplane-outline"></ion-icon>>></i>
+              <h6>Affordable Hotels</h6>
+              <p>Find the best deals on comfortable and affordable accommodations for your trip.</p>
+          </div>
+          <div class="service-item">
+              <i class="fas fa-calendar-check" <ion-icon name="airplane-outline"></ion-icon>>></i>
+              <h6>Safty Guide</h6>
+              <p>Stay safe during your travels with our comprehensive safety tips and guidelines.</p>
+          </div>
+      </article>
+  </section>
+  <div class="container mt-5" id="contact">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <p class="text-center mb-4">We'd love to hear from you! Fill out the form below to get in touch.</p>
+        
+        <div class="card">
+          <div class="card-body">
+            <form>
+              <div class="mb-3">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Your message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Contact Information -->
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <h4>Our Address</h4>
+        <p>1234 Main Street, City,Hyderabda,India</p>
+      </div>
+      <div class="col-md-6">
+        <h4>Contact Info</h4>
+        <p>Email: tarunsai@example.com</p>
+        <p>Phone: +91-8142253035</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS & dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <!-- reviews -->
+  <div class="container mt-5" id="review">
+    <h2 class="text-center mb-4" id="h22">What Customers Say</h2>
+    <p class="text-center mb-5"></p>
+
+    <div class="row">
+      <!-- Review 1 -->
+      <div class="col-md-3 mb-4">
+        <div class="review-card">
+          <img src="https://media.istockphoto.com/id/1445597021/photo/black-man-phone-and-social-media-in-city-reading-text-message-or-communication-on-social.jpg?s=612x612&w=0&k=20&c=B7pEc-0pgtUw33hz9P5-row1Go3YwwHacUJrE-lCNgA=" class="review-img" alt="reviewer 1">
+          <h5 class="review-title">Alice Johnson</h5>
+          <p class="review-text">"The tour was amazing! I loved every moment of it. Highly recommend!"</p>
+          <div class="stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9734;</span>
+          </div>
+          <small>Rating: 4/5</small>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="col-md-3 mb-4">
+        <div class="review-card">
+          <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?cs=srgb&dl=pexels-italo-melo-881954-2379004.jpg&fm=jpg" class="review-img" alt="reviewer 2">
+          <h5 class="review-title">John Doe</h5>
+          <p class="review-text">"Great experience! The guide was knowledgeable and friendly."</p>
+          <div class="stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+          </div>
+          <small>Rating: 5/5</small>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="col-md-3 mb-4">
+        <div class="review-card">
+          <img src="https://thrillophilia-dubai-reviews.com/content/images/2024/10/3jowi0zizfphywerzoh023ph1o4e_1000004794.jpg" class="review-img" alt="reviewer 3">
+          <h5 class="review-title">Sarah Lee</h5>
+          <p class="review-text">"Nice tour, but a bit rushed. Still, it was a good experience."</p>
+          <div class="stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9734;</span>
+            <span class="star">&#9734;</span>
+          </div>
+          <small>Rating: 3/5</small>
+        </div>
+      </div>
+
+      <!-- Review 4 -->
+      <div class="col-md-3 mb-4">
+        <div class="review-card">
+          <img src="https://media-cdn.tripadvisor.com/media/photo-s/1b/2e/9b/d8/bali-trips-for-solo-women.jpg" class="review-img" alt="reviewer 4">
+          <h5 class="review-title">David Smith</h5>
+          <p class="review-text">"Excellent value for money. The tour was well-organized and fun!"</p>
+          <div class="stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+          </div>
+          <small>Rating: 5/5</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="company-info">
+        <h3>Travel Info</h3>
+        <p>Travelling often imparts new skills without difficulty or even conscious effort.</p>
+        <img src="./logo1.jpg" alt="Company Logo"> </div>
+      <div class="contacts">
+        <h3>Contacts</h3>
+        <p>123-456-78901</p>
+        <p>London, 51 Street, 43</p>
+        <p>Mon-Sat 8.00-18.00</p>
+      </div>
+      <div class="recent-trips">
+        <h3>Recent Trips</h3>
+        <div class="trip-images">
+          <img src="https://media.istockphoto.com/id/1388250875/photo/group-of-happy-asian-family-fun-travel-on-road-trip-in-vacation-at-beach-father-mother.jpg?s=612x612&w=0&k=20&c=iINn5qJq2Bp9TgrzsL0JvuUw0mOgWK9OOuD_fS5Q9UE=" alt="Trip 1">
+          <img src="https://thumbs.dreamstime.com/b/rear-view-friends-road-trip-driving-convertible-car-67525217.jpg" alt="Trip 2">
+          <img src="https://thumbs.dreamstime.com/z/red-convertible-car-two-people-one-whom-waving-car-driving-road-near-ocean-red-convertible-344487883.jpg" alt="Trip 3">
+          <img src="https://media.istockphoto.com/id/1443145353/photo/dad-mom-and-daughter-enjoying-road-trip-sitting-on-back-car.jpg?s=612x612&w=0&k=20&c=DlQsEnCfVp4bGwds5mtJ75puQMW4ok0vltjDMHRJTcg=" alt="Trip 4">
+          <img src="https://www.shutterstock.com/image-photo/happy-family-day-asian-mother-600nw-2240766885.jpg" alt="Trip 5">
+          <img src="https://media.istockphoto.com/id/1450052495/photo/happy-family-with-car-travel-road-trip-summer-vacation-in-car-in-the-sunset-dad-mom-and.jpg?s=612x612&w=0&k=20&c=yj4tsXvfofdNC9yaWotQrJ0CJPeMQoU2zffXFsDCOxM=" alt="Trip 6">
+        </div>
+      </div>
+    </div>
+    <div class="social-media">
+      <a href="https://www.facebook.com/login/"><img src="https://www.dumbchat.ai/wp-content/uploads/2021/11/Facebook-function-introduction.jpg" alt="Facebook">facebook</a>
+      <a href="https://x.com/i/flow/login"><img src="https://store-images.s-microsoft.com/image/apps.60673.9007199266244427.4d45042b-d7a5-4a83-be66-97779553b24d.5d82b7eb-9734-4b51-b65d-a0383348ab1b?h=210" alt="Twitter">Twitter</a>
+      <a href="https://support.google.com/answer/2451065?hl=en"><img src="https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/google_-512.png" alt="Google Plus">Google Pluse</a>
+      <a href="https://www.instagram.com/accounts/login/?hl=en"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png" alt="Instagram">Instagram</a>
+    </div>
+  </footer>
+  
+  </body> 
+</html>
+
+ 
